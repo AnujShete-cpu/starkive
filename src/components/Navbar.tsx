@@ -28,7 +28,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[200] px-4 md:px-8 lg:px-12 h-[70px] flex items-center justify-between bg-[rgba(10,10,10,0.92)] backdrop-blur-[16px] border-b border-border">
+      <nav className="fixed top-0 left-0 right-0 z-[200] px-4 md:px-12 h-[70px] flex items-center justify-between bg-[rgba(10,10,10,0.92)] backdrop-blur-[16px] border-b border-border">
         <div className="flex items-center gap-2">
           <Link to="/" className="logo">
             <span className="logo-dot"></span>
@@ -37,41 +37,26 @@ export default function Navbar() {
         </div>
 
         <ul className="hidden lg:flex list-none gap-8 absolute left-1/2 -translate-x-1/2">
-          <li>
-            <Link to="/browse" className="nav-link text-white2 hover:text-white transition-colors uppercase text-[13px] font-medium tracking-[0.06em]">
-              Browse
-            </Link>
-          </li>
-          <li>
-            <Link to="/categories" className="nav-link text-white2 hover:text-white transition-colors uppercase text-[13px] font-medium tracking-[0.06em]">
-              Categories
-            </Link>
-          </li>
-          <li>
-            <Link to="/compare" className="nav-link text-white2 hover:text-white transition-colors uppercase text-[13px] font-medium tracking-[0.06em]">
-              Compare
-            </Link>
-          </li>
-          <li>
-            <Link to="/profile" className="nav-link text-white2 hover:text-white transition-colors uppercase text-[13px] font-medium tracking-[0.06em]">
-              Profile
-            </Link>
-          </li>
+          <li><Link to="/browse" className="nav-link text-white2 hover:text-white transition-colors uppercase text-[13px] font-medium tracking-[0.06em]">Browse</Link></li>
+          <li><Link to="/categories" className="nav-link text-white2 hover:text-white transition-colors uppercase text-[13px] font-medium tracking-[0.06em]">Categories</Link></li>
+          <li><Link to="/repos" className="nav-link text-white2 hover:text-white transition-colors uppercase text-[13px] font-medium tracking-[0.06em]">GitHub Repos</Link></li>
+          <li><Link to="/compare" className="nav-link text-white2 hover:text-white transition-colors uppercase text-[13px] font-medium tracking-[0.06em]">Compare</Link></li>
+          <li><Link to="/profile" className="nav-link text-white2 hover:text-white transition-colors uppercase text-[13px] font-medium tracking-[0.06em]">Profile</Link></li>
         </ul>
 
-        <div className="flex items-center gap-3 md:gap-4">
-          <div className="relative hidden sm:flex items-center justify-end">
+        <div className="flex items-center gap-4 md:gap-10">
+          <div className="relative flex items-center justify-end min-w-[100px]">
             {showSearch && (
-              <div className="hidden xl:flex items-center bg-black3 border border-border2 h-[36px] focus-within:border-accent transition-colors rounded-lg overflow-hidden">
+              <div className="hidden lg:flex items-center bg-black3 border border-border2 h-[38px] focus-within:border-accent transition-colors">
                 <form onSubmit={handleSearch} className="flex items-center h-full">
                   <input
                     type="text"
                     placeholder="Search tools..."
-                    className="bg-transparent border-none outline-none text-white font-body text-[12px] italic px-3 w-[180px] h-full"
+                    className="bg-transparent border-none outline-none text-white font-body text-[13px] italic px-3 w-[200px] h-full"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
-                  <button type="submit" className="bg-accent text-black border-none h-full px-3 font-syne text-[11px] font-bold uppercase tracking-[0.06em] cursor-pointer hover:opacity-85 whitespace-nowrap">
+                  <button type="submit" className="bg-accent text-black border-none h-full px-4 font-syne text-[11px] font-bold uppercase tracking-[0.06em] cursor-pointer hover:opacity-85 whitespace-nowrap">
                     Go
                   </button>
                 </form>
@@ -93,26 +78,25 @@ export default function Navbar() {
         "fixed top-[70px] left-0 right-0 bg-[rgba(10,10,10,0.98)] backdrop-blur-[20px] border-b border-border z-[199] p-6 flex-col gap-0 transition-all duration-300 lg:hidden",
         isMenuOpen ? "flex" : "hidden"
       )}>
-        <Link to="/" className="text-white2 font-syne text-[15px] font-semibold uppercase tracking-[0.06em] py-3.5 border-b border-border" onClick={() => setIsMenuOpen(false)}>Home</Link>
-        <Link to="/browse" className="text-white2 font-syne text-[15px] font-semibold uppercase tracking-[0.06em] py-3.5 border-b border-border" onClick={() => setIsMenuOpen(false)}>Browse</Link>
-        <Link to="/categories" className="text-white2 font-syne text-[15px] font-semibold uppercase tracking-[0.06em] py-3.5 border-b border-border" onClick={() => setIsMenuOpen(false)}>Categories</Link>
-        <Link to="/compare" className="text-white2 font-syne text-[15px] font-semibold uppercase tracking-[0.06em] py-3.5 border-b border-border" onClick={() => setIsMenuOpen(false)}>Compare</Link>
-        <Link to="/profile" className="text-white2 font-syne text-[15px] font-semibold uppercase tracking-[0.06em] py-3.5 border-b border-border" onClick={() => setIsMenuOpen(false)}>Profile</Link>
+        <Link to="/" className="text-white2 font-syne text-[15px] font-semibold uppercase tracking-[0.06em] py-4 border-b border-border" onClick={() => setIsMenuOpen(false)}>Home</Link>
+        <Link to="/browse" className="text-white2 font-syne text-[15px] font-semibold uppercase tracking-[0.06em] py-4 border-b border-border" onClick={() => setIsMenuOpen(false)}>Browse</Link>
+        <Link to="/categories" className="text-white2 font-syne text-[15px] font-semibold uppercase tracking-[0.06em] py-4 border-b border-border" onClick={() => setIsMenuOpen(false)}>Categories</Link>
+        <Link to="/repos" className="text-white2 font-syne text-[15px] font-semibold uppercase tracking-[0.06em] py-4 border-b border-border" onClick={() => setIsMenuOpen(false)}>GitHub Repos</Link>
+        <Link to="/compare" className="text-white2 font-syne text-[15px] font-semibold uppercase tracking-[0.06em] py-4 border-b border-border" onClick={() => setIsMenuOpen(false)}>Compare</Link>
+        <Link to="/profile" className="text-white2 font-syne text-[15px] font-semibold uppercase tracking-[0.06em] py-4 border-b border-border" onClick={() => setIsMenuOpen(false)}>Profile</Link>
 
-        <div className="pt-4 flex flex-col gap-3">
-          <form onSubmit={handleSearch} className="flex border border-border2 rounded-xl overflow-hidden">
-            <input
-              type="text"
-              placeholder="Search tools..."
-              className="flex-1 bg-black3 border-none outline-none text-white font-body text-xs italic p-3"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button type="submit" className="bg-accent text-black border-none px-4 font-syne text-[11px] font-bold uppercase cursor-pointer">
-              Go
-            </button>
-          </form>
-        </div>
+        <form onSubmit={handleSearch} className="flex mt-5 border border-border2">
+          <input
+            type="text"
+            placeholder="Search tools..."
+            className="flex-1 bg-black3 border-none outline-none text-white font-body text-sm italic p-3"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button type="submit" className="bg-accent text-black border-none px-4 font-syne text-[11px] font-bold uppercase cursor-pointer">
+            Go
+          </button>
+        </form>
       </div>
     </>
   );

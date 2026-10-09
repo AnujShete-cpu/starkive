@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Browse from './pages/Browse';
 import Categories from './pages/Categories';
+import Repos from './pages/Repos';
 import HowItWorks from './pages/HowItWorks';
 import ToolDetail from './pages/ToolDetail';
 import Profile from './pages/Profile';
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/browse" element={<Browse />} />
             <Route path="/categories" element={<Categories />} />
+            <Route path="/repos" element={<Repos />} />
             <Route path="/compare" element={<Compare />} />
             <Route path="/manage" element={<ManageTools />} />
             <Route path="/how-it-works" element={<HowItWorks />} />

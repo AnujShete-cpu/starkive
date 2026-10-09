@@ -15,8 +15,9 @@ export default function Footer() {
           <div className="footer-col-title">Discover</div>
           <ul className="footer-links">
             <li><Link to="/browse">Browse All</Link></li>
-            <li><Link to="/compare">Compare Tools</Link></li>
             <li><Link to="/categories">Categories</Link></li>
+            <li><Link to="/repos">GitHub Repos</Link></li>
+            <li><Link to="/compare">Compare Tools</Link></li>
             <li><Link to="/profile">Profile & Saved</Link></li>
           </ul>
         </div>

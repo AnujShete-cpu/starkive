@@ -33,3 +33,24 @@ export interface Review {
   rating: number;
   date: string;
 }
+
+export interface GitHubRepo {
+  id: string;
+  name: string;
+  owner: string;
+  fullName: string;
+  icon?: string;
+  description: string;
+  url: string;
+  stars: number;
+  starsFormatted: string;
+  forks: number;
+  forksFormatted: string;
+  language: string;
+  languageColor: string;
+  license: string;
+  topics: string[];
+  category: string;
+  categoryLabel: string;
+  featured?: boolean;
+}

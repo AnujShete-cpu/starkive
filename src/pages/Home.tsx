@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { getAllTools } from '../lib/toolStore';
+import { GITHUB_REPOS } from '../data/githubRepos';
 import { Tool } from '../types';
 import { cn } from '../lib/utils';
 import { ToolCard } from '../components/ToolCard';
+import { GitHubRepoCard } from '../components/GitHubRepoCard';
 import ReviewModal from '../components/ReviewModal';
-import AddToolModal from '../components/AddToolModal';
-import { Plus, Sparkles, Layers, ArrowRight, ShieldCheck } from 'lucide-react';
-import { isAdminAuthenticated } from '../lib/adminAuth';
 
 const DEFAULT_REVIEWS = [
   { id: 1, name: 'Sarah K.', role: 'Freelance Designer', text: 'Finally a directory that actually understands what I\'m looking for. Searched "make my photos look professional" and got exactly the right tools.', rating: 5, date: '2026-03-01' },
@@ -21,10 +20,8 @@ export default function Home() {
   const [globalReviews, setGlobalReviews] = useState<any[]>(DEFAULT_REVIEWS);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [tools, setTools] = useState<Tool[]>([]);
-  const [isAdmin, setIsAdmin] = useState(isAdminAuthenticated());
 
   const revealRefs = useRef<HTMLElement[]>([]);
 
@@ -42,10 +39,7 @@ export default function Home() {
     loadReviews();
 
     const handleToolsUpdated = () => loadTools();
-    const handleAdminChanged = (e: any) => setIsAdmin(Boolean(e.detail));
-
     window.addEventListener('toolscout_tools_updated', handleToolsUpdated);
-    window.addEventListener('toolscout_admin_changed', handleAdminChanged);
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -63,7 +57,6 @@ export default function Home() {
 
     return () => {
       window.removeEventListener('toolscout_tools_updated', handleToolsUpdated);
-      window.removeEventListener('toolscout_admin_changed', handleAdminChanged);
       observer.disconnect();
       window.removeEventListener('show-toast', handleToast);
     };
@@ -77,18 +70,19 @@ export default function Home() {
   const getCategoryCount = (cat: string) => tools.filter(t => t.cat === cat).length;
 
   const categories = [
-    { id: '01', icon: '🎬', name: 'Video', desc: 'Generate, edit, and upscale videos', count: `${getCategoryCount('video')} tools`, cat: 'video' },
-    { id: '02', icon: '🖼️', name: 'Image', desc: 'Transform and generate high-res visuals', count: `${getCategoryCount('image')} tools`, cat: 'image' },
-    { id: '03', icon: '✍️', name: 'Writing', desc: 'SEO articles, copywriting, and prose', count: `${getCategoryCount('writing')} tools`, cat: 'writing' },
-    { id: '04', icon: '🎙️', name: 'Audio', desc: 'Voice synthesis, music, and podcasts', count: `${getCategoryCount('audio')} tools`, cat: 'audio' },
-    { id: '05', icon: '💻', name: 'Coding', desc: 'Autonomous devs and code assistants', count: `${getCategoryCount('coding')} tools`, cat: 'coding' },
-    { id: '06', icon: '🎨', name: 'Design', desc: 'Logos, UI mockups, and visual assets', count: `${getCategoryCount('generation')} tools`, cat: 'generation' },
-    { id: '07', icon: '⚡', name: 'Productivity', desc: 'Smart workflows and daily tasks', count: `${getCategoryCount('productivity')} tools`, cat: 'productivity' },
-    { id: '08', icon: '📈', name: 'Marketing', desc: 'Campaign ads and social media growth', count: `${getCategoryCount('marketing')} tools`, cat: 'marketing' },
+    { id: '01', icon: '🎬', name: 'Video', desc: 'Generate and edit video content', count: `${getCategoryCount('video')} tools`, cat: 'video' },
+    { id: '02', icon: '🖼️', name: 'Image', desc: 'Edit and generate visuals', count: `${getCategoryCount('image')} tools`, cat: 'image' },
+    { id: '03', icon: '✍️', name: 'Writing', desc: 'Copy, blogs, and marketing content', count: `${getCategoryCount('writing')} tools`, cat: 'writing' },
+    { id: '04', icon: '🎙️', name: 'Audio', desc: 'Voice synthesis and music', count: `${getCategoryCount('audio')} tools`, cat: 'audio' },
+    { id: '05', icon: '💻', name: 'Coding', desc: 'Build apps and websites', count: `${getCategoryCount('coding')} tools`, cat: 'coding' },
+    { id: '06', icon: '🎨', name: 'Design', desc: 'Logos and brand identity', count: `${getCategoryCount('generation')} tools`, cat: 'generation' },
+    { id: '07', icon: '⚡', name: 'Productivity', desc: 'Workflows and AI agents', count: `${getCategoryCount('productivity')} tools`, cat: 'productivity' },
+    { id: '08', icon: '📈', name: 'Marketing', desc: 'Product photos and ads', count: `${getCategoryCount('marketing')} tools`, cat: 'marketing' },
   ];
 
   const totalToolCount = tools.length || 200;
   const featuredTools = tools.filter(t => t.featured).slice(0, 6);
+  const topFeaturedRepos = GITHUB_REPOS.filter(r => r.featured).slice(0, 6);
 
   const addToReveal = (el: HTMLElement | null) => {
     if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
@@ -96,6 +90,7 @@ export default function Home() {
 
   return (
     <div className="page active">
+      {/* Ticker */}
       <div className="ticker-wrap mt-[70px]">
         <div className="ticker-inner">
           {[...Array(2)].map((_, i) => (
@@ -105,6 +100,7 @@ export default function Home() {
               <span className="ticker-item"><span className="ticker-sep"></span>AI Writing</span>
               <span className="ticker-item"><span className="ticker-sep"></span>Voice Synthesis</span>
               <span className="ticker-item"><span className="ticker-sep"></span>Code Automation</span>
+              <span className="ticker-item"><span className="ticker-sep"></span>GitHub AI Repos</span>
               <span className="ticker-item"><span className="ticker-sep"></span>Design Tools</span>
               <span className="ticker-item"><span className="ticker-sep"></span>Data Analytics</span>
               <span className="ticker-item"><span className="ticker-sep"></span>E-commerce AI</span>
@@ -115,28 +111,31 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Above-Hero GitHub Repos Spotlight Strip */}
+      <div className="bg-black2 border-b border-border py-2.5 px-6 md:px-12 flex items-center justify-between text-xs font-mono">
+        <div className="flex items-center gap-2">
+          <span className="text-accent font-bold">★ OPEN-SOURCE HUB</span>
+          <span className="text-white3 hidden sm:inline">|</span>
+          <span className="text-white2 hidden sm:inline">Explore curated AI GitHub Repositories: AutoGPT, Ollama, LangChain, vLLM</span>
+        </div>
+        <Link to="/repos" className="text-accent hover:underline flex items-center gap-1 font-bold no-underline">
+          Explore & Keep Repos →
+        </Link>
+      </div>
+
+      {/* Hero Section */}
       <section className="hero">
         <div className="hero-left reveal" ref={addToReveal}>
-          <div className="hero-eyebrow flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-            The AI Tools Directory — {totalToolCount} Tools Available
-          </div>
+          <div className="hero-eyebrow">The AI Tools Directory — {totalToolCount} Tools Available</div>
           <h1 className="hero-headline">
             Find the<br />
             <span className="line-accent">right tool</span><br />
             <span className="line-outline">for anything.</span>
           </h1>
-          <p className="hero-sub">
-            Stop hoarding AI tools in messy saves. Describe what you need in plain English — we match you to the exact tool that solves it.
-          </p>
-          <div className="hero-actions flex-wrap gap-4">
+          <p className="hero-sub">Stop hoarding AI tools in messy Instagram saves. Describe what you need — we match you to the exact tool that solves it.</p>
+          <div className="hero-actions">
             <button className="btn-primary" onClick={() => navigate('/browse')}>Browse All Tools →</button>
-            <button
-              onClick={() => navigate('/compare')}
-              className="bg-black3 hover:bg-black4 border border-border text-white2 hover:text-white font-syne text-xs uppercase font-bold px-6 py-4 transition-all flex items-center gap-1.5"
-            >
-              <Layers size={14} className="text-accent" /> Compare Tools
-            </button>
+            <button className="btn-ghost" onClick={() => navigate('/repos')}>GitHub Repos</button>
           </div>
         </div>
         <div className="hero-right reveal" ref={addToReveal}>
@@ -150,31 +149,46 @@ export default function Home() {
             <button type="submit" className="search-go">Search</button>
           </form>
           <div className="hint-row">
-            {['remove background', 'edit video', 'voice clone', 'coding', 'agents'].map(hint => (
-              <span key={hint} className="hint" onClick={() => navigate(`/browse?q=${encodeURIComponent(hint)}`)}>{hint}</span>
+            {['remove background', 'edit video', 'voice clone', 'github repos', 'coding'].map(hint => (
+              <span
+                key={hint}
+                className="hint"
+                onClick={() => hint === 'github repos' ? navigate('/repos') : navigate(`/browse?q=${encodeURIComponent(hint)}`)}
+              >
+                {hint}
+              </span>
             ))}
           </div>
           <div className="hero-stats">
-            <div className="hero-stat">
-              <div className="hero-stat-num"><span>{totalToolCount}</span></div>
-              <div className="hero-stat-label">Tools Listed</div>
-            </div>
-            <div className="hero-stat">
-              <div className="hero-stat-num"><span>24</span></div>
-              <div className="hero-stat-label">Categories</div>
-            </div>
-            <div className="hero-stat">
-              <div className="hero-stat-num"><span>Live</span></div>
-              <div className="hero-stat-label">Web Embeds</div>
-            </div>
-            <div className="hero-stat">
-              <div className="hero-stat-num"><span>AI</span></div>
-              <div className="hero-stat-label">Copilot Ready</div>
-            </div>
+            <div className="hero-stat"><div className="hero-stat-num"><span>{totalToolCount}</span></div><div className="hero-stat-label">Tools Listed</div></div>
+            <div className="hero-stat"><div className="hero-stat-num"><span>{GITHUB_REPOS.length}+</span></div><div className="hero-stat-label">GitHub Repos</div></div>
+            <div className="hero-stat"><div className="hero-stat-num"><span>20</span></div><div className="hero-stat-label">Categories</div></div>
+            <div className="hero-stat"><div className="hero-stat-num"><span>Free</span></div><div className="hero-stat-label">To Search</div></div>
           </div>
         </div>
       </section>
 
+      {/* GitHub Open-Source Repositories Section */}
+      <section className="section border-t border-border bg-black2/30">
+        <div className="section-row reveal" ref={addToReveal}>
+          <div className="section-title-block">
+            <div className="sec-label">Open-Source AI Hub</div>
+            <h2 className="sec-title">Top GitHub<br /><em>Repositories</em></h2>
+            <p className="sec-desc !text-left !self-start mt-4">Curated, star-ranked repositories for autonomous agents, local LLMs, and inference frameworks. Sort, explore, and keep them.</p>
+          </div>
+          <button className="btn-primary self-end" onClick={() => navigate('/repos')}>All Repos ({GITHUB_REPOS.length}) →</button>
+        </div>
+        <div className="tools-grid reveal" ref={addToReveal}>
+          {topFeaturedRepos.map((repo, idx) => (
+            <GitHubRepoCard key={repo.id} repo={repo} index={idx} />
+          ))}
+        </div>
+        <div className="reveal mt-10 flex justify-center" ref={addToReveal}>
+          <button className="btn-primary bg-accent text-black border-none" onClick={() => navigate('/repos')}>Explore & Sort All {GITHUB_REPOS.length} Repositories →</button>
+        </div>
+      </section>
+
+      {/* Featured Tools Section */}
       <section className="section">
         <div className="section-row reveal" ref={addToReveal}>
           <div className="section-title-block">
@@ -188,29 +202,25 @@ export default function Home() {
             <ToolCard key={tool.id} tool={tool} />
           ))}
         </div>
-        <div className="reveal mt-10 flex justify-center gap-4 flex-wrap" ref={addToReveal}>
-          <button className="btn-primary bg-accent text-black border-none" onClick={() => navigate('/browse')}>
-            View All {totalToolCount} Tools
-          </button>
+        <div className="reveal mt-10 flex justify-center" ref={addToReveal}>
+          <button className="btn-primary bg-accent text-black border-none" onClick={() => navigate('/browse')}>View All Tools</button>
         </div>
       </section>
 
-      {/* Category Use Cases Section */}
+      {/* Category Section */}
       <section className="section !pt-0">
         <div className="cat-scroll -mx-12 mb-[60px] border-t-0">
           <div className="cat-scroll-inner">
             {[...Array(2)].map((_, i) => (
               <React.Fragment key={i}>
                 <div className="cat-scroll-item">🎬 Video <span className="cat-num">{getCategoryCount('video')}</span></div>
+                <div className="cat-scroll-item">⭐ Repos <span className="cat-num">{GITHUB_REPOS.length}</span></div>
                 <div className="cat-scroll-item">🖼️ Image <span className="cat-num">{getCategoryCount('image')}</span></div>
                 <div className="cat-scroll-item">✍️ Writing <span className="cat-num">{getCategoryCount('writing')}</span></div>
                 <div className="cat-scroll-item">🎙️ Audio <span className="cat-num">{getCategoryCount('audio')}</span></div>
                 <div className="cat-scroll-item">🎨 Design <span className="cat-num">{getCategoryCount('generation')}</span></div>
                 <div className="cat-scroll-item">💻 Code <span className="cat-num">{getCategoryCount('coding')}</span></div>
-                <div className="cat-scroll-item">🤖 Agent <span className="cat-num">{getCategoryCount('agent')}</span></div>
-                <div className="cat-scroll-item">📊 Data <span className="cat-num">{getCategoryCount('data')}</span></div>
-                <div className="cat-scroll-item">⚖️ Finance <span className="cat-num">{getCategoryCount('finance')}</span></div>
-                <div className="cat-scroll-item">🧠 Productivity <span className="cat-num">{getCategoryCount('productivity')}</span></div>
+                <div className="cat-scroll-item">⚡ Productivity <span className="cat-num">{getCategoryCount('productivity')}</span></div>
               </React.Fragment>
             ))}
           </div>
@@ -238,31 +248,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="section">
+      {/* Real Users Section */}
+      <section className="section border-t border-border">
         <div className="section-row reveal" ref={addToReveal}>
           <div className="section-title-block">
-            <div className="sec-label">Community Insights</div>
-            <h2 className="sec-title">What creators<br /><em>are saying</em></h2>
+            <div className="sec-label">Real Users</div>
+            <h2 className="sec-title">What they're<br /><em>saying</em></h2>
           </div>
-          <button className="btn-primary self-end" onClick={() => setIsReviewModalOpen(true)}>Add Your Review +</button>
         </div>
         <div className="testimonials-grid reveal" ref={addToReveal}>
-          {globalReviews.map(r => (
-            <div key={r.id} className="testimonial">
-              <div className="text-[#f0c040] mb-3 text-base">{'★'.repeat(r.rating)}</div>
-              <p className="testimonial-quote">"{r.text}"</p>
+          {globalReviews.map((r, i) => (
+            <div key={r.id || i} className="testimonial">
+              <p className="testimonial-quote">{r.text}</p>
               <div className="testimonial-author">
-                <div className="author-avatar bg-accent/10 text-accent">
-                  {r.name.substring(0, 2).toUpperCase()}
+                <div
+                  className="author-avatar"
+                  style={{
+                    backgroundColor: i % 3 === 0 ? 'rgba(200,255,0,0.12)' : i % 3 === 1 ? 'rgba(255,69,0,0.12)' : 'rgba(255,255,255,0.06)',
+                    color: i % 3 === 0 ? 'var(--accent)' : i % 3 === 1 ? 'var(--accent2)' : 'var(--white2)'
+                  }}
+                >
+                  {r.name.split(' ').map((n: string) => n[0]).join('')}
                 </div>
                 <div>
                   <div className="author-name">{r.name}</div>
-                  <div className="author-role">{r.role}</div>
+                  <div className="author-role">{r.role || 'ToolScout User'}</div>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+        <div className="reveal mt-10 flex justify-center" ref={addToReveal}>
+          <button className="btn-primary bg-accent text-black border-none" onClick={() => setIsReviewModalOpen(true)}>Leave a Review</button>
         </div>
       </section>
 
@@ -270,21 +287,23 @@ export default function Home() {
       <section className="section">
         <div className="section-row reveal" ref={addToReveal}>
           <div className="section-title-block">
-            <div className="sec-label">FAQ</div>
-            <h2 className="sec-title">Frequently<br /><em>asked questions</em></h2>
+            <div className="sec-label">Common Questions</div>
+            <h2 className="sec-title">FAQ</h2>
           </div>
         </div>
         <div className="faq-list reveal" ref={addToReveal}>
           {[
-            { q: 'How do I find the best AI tool for my task?', a: 'You can use the natural language search bar at the top, browse by category, compare tools side-by-side, or click the floating "Ask Scout AI" button in the bottom right corner for instant recommendations.' },
-            { q: 'How does live website embedding work?', a: 'On every tool\'s detail page, click the "Live Interactive Preview" tab. You can interact with the website inside desktop, tablet, and mobile device frames, and even generate embed codes for your own site or Notion.' },
-            { q: 'What is Scout AI Copilot?', a: 'Scout AI is your personal directory assistant. Describe any problem, and it will recommend the best tools and step-by-step workflows.' },
-            { q: 'How often is the directory updated?', a: 'The directory is continuously updated with the latest AI tools and models.' },
-          ].map((faq, idx) => (
-            <div key={idx} className={cn("faq-item", openFaq === idx && "open")}>
-              <div className="faq-q" onClick={() => setOpenFaq(openFaq === idx ? null : idx)}>
-                {faq.q}
-                <span className="faq-icon">{openFaq === idx ? '−' : '+'}</span>
+            { q: "Is searching for tools really free?", a: "Yes, always. Users search, browse, compare, bookmark, and review tools at zero cost. We charge founders for premium placement — never users for discovery." },
+            { q: "How is this different from other AI directories?", a: "Most directories are keyword-based — you have to know the tool's name. ToolScout uses intent-matching: describe a problem in plain English and we map it to tools by meaning. We also curate — we only list tools we've verified." },
+            { q: "How do I find and keep GitHub repositories?", a: "Visit the GitHub Repos page from the navigation or hero section. You can sort by stars or forks, filter by programming language, and click 'Keep' to save repositories to your personal profile." },
+            { q: "How often is the directory updated?", a: "We update our directory daily with new tools and verified reviews to keep you at the cutting edge of AI." },
+            { q: "Can I submit my own AI tool?", a: "Absolutely! We love discovering new tools. Use the 'List Your Tool' section below to submit your tool for review." },
+            { q: "Are the reviews from real users?", a: "Yes, all reviews are submitted by real users and verified by our team to ensure authenticity and helpfulness." }
+          ].map((faq, i) => (
+            <div key={i} className={cn("faq-item", openFaq === i && "open")}>
+              <div className="faq-q" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
+                <span className="faq-q-text">{faq.q}</span>
+                <span className="faq-toggle">{openFaq === i ? '×' : '+'}</span>
               </div>
               <div className="faq-a">{faq.a}</div>
             </div>
@@ -292,26 +311,43 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Modals & Toast */}
+      {/* Grow the Community / List Your Tool */}
+      <section className="section border-t border-border">
+        <div className="section-row reveal" ref={addToReveal}>
+          <div className="section-title-block">
+            <div className="sec-label">Grow the community</div>
+            <h2 className="sec-title">List your<br /><em>AI tool</em></h2>
+            <p className="sec-desc !text-left !self-start mt-4">Help others discover the best AI tools. Submit a tool you love or one you've built. Every submission is reviewed by our team using AI to ensure quality and legitimacy.</p>
+          </div>
+          <div className="self-end">
+            <a
+              href="https://tally.so/r/KYJ88M"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+            >
+              Submit Tool →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Strip */}
+      <div className="cta-strip">
+        <h2 className="cta-title reveal" ref={addToReveal}>Find your<br /><span className="acc">AI toolkit</span><br /><span className="out">today.</span></h2>
+        <div className="reveal flex gap-4 flex-wrap" ref={addToReveal}>
+          <button className="btn-primary" onClick={() => navigate('/browse')}>Browse Tools →</button>
+        </div>
+      </div>
+
       <ReviewModal
         isOpen={isReviewModalOpen}
         onClose={() => setIsReviewModalOpen(false)}
         onSuccess={loadReviews}
       />
-      {isAdmin && (
-        <AddToolModal
-          isOpen={isAddModalOpen}
-          onClose={() => setIsAddModalOpen(false)}
-          onSuccess={() => {
-            setIsAddModalOpen(false);
-            loadTools();
-          }}
-        />
-      )}
+
       {toast && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-accent text-black font-syne text-xs uppercase font-bold px-6 py-3 rounded-full shadow-2xl z-[350] animate-fadeIn">
-          {toast}
-        </div>
+        <div className="toast show">{toast}</div>
       )}
     </div>
   );
