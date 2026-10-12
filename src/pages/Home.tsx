@@ -123,7 +123,7 @@ export default function Home() {
         </Link>
       </div>
 
-      {/* Hero Section */}
+      {/* Hero Section (Retains original hero reveal effects) */}
       <section className="hero">
         <div className="hero-left reveal" ref={addToReveal}>
           <div className="hero-eyebrow">The AI Tools Directory — {totalToolCount} Tools Available</div>
@@ -168,9 +168,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* GitHub Open-Source Repositories Section */}
+      {/* GitHub Open-Source Repositories Section (No fade animation, solid rendering) */}
       <section className="section border-t border-border bg-black2/30">
-        <div className="section-row reveal" ref={addToReveal}>
+        <div className="section-row">
           <div className="section-title-block">
             <div className="sec-label">Open-Source AI Hub</div>
             <h2 className="sec-title">Top GitHub<br /><em>Repositories</em></h2>
@@ -178,36 +178,36 @@ export default function Home() {
           </div>
           <button className="btn-primary self-end" onClick={() => navigate('/repos')}>All Repos ({GITHUB_REPOS.length}) →</button>
         </div>
-        <div className="tools-grid reveal" ref={addToReveal}>
+        <div className="tools-grid">
           {topFeaturedRepos.map((repo, idx) => (
             <GitHubRepoCard key={repo.id} repo={repo} index={idx} />
           ))}
         </div>
-        <div className="reveal mt-10 flex justify-center" ref={addToReveal}>
+        <div className="mt-10 flex justify-center">
           <button className="btn-primary bg-accent text-black border-none" onClick={() => navigate('/repos')}>Explore & Sort All {GITHUB_REPOS.length} Repositories →</button>
         </div>
       </section>
 
-      {/* Featured Tools Section */}
+      {/* Featured Tools Section (No fade animation, solid rendering) */}
       <section className="section">
-        <div className="section-row reveal" ref={addToReveal}>
+        <div className="section-row">
           <div className="section-title-block">
             <div className="sec-label">Featured This Week</div>
             <h2 className="sec-title">Tools people<br /><em>love right now</em></h2>
             <p className="sec-desc !text-left !self-start mt-4">Curated, tested, and tagged so you find what you actually need — not just what's most popular.</p>
           </div>
         </div>
-        <div className="tools-grid reveal" ref={addToReveal}>
+        <div className="tools-grid">
           {featuredTools.map(tool => (
             <ToolCard key={tool.id} tool={tool} />
           ))}
         </div>
-        <div className="reveal mt-10 flex justify-center" ref={addToReveal}>
+        <div className="mt-10 flex justify-center">
           <button className="btn-primary bg-accent text-black border-none" onClick={() => navigate('/browse')}>View All Tools</button>
         </div>
       </section>
 
-      {/* Category Section */}
+      {/* Category Section with cat-scroll kept (No fade animation, solid rendering) */}
       <section className="section !pt-0">
         <div className="cat-scroll -mx-12 mb-[60px] border-t-0">
           <div className="cat-scroll-inner">
@@ -226,7 +226,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="section-row reveal" ref={addToReveal}>
+        <div className="section-row">
           <div className="section-title-block">
             <div className="sec-label">Browse by Goal</div>
             <h2 className="sec-title">What are we<br /><em>trying to do?</em></h2>
@@ -234,7 +234,7 @@ export default function Home() {
           <button className="btn-primary self-end" onClick={() => navigate('/categories')}>All Categories →</button>
         </div>
 
-        <div className="cat-list reveal" ref={addToReveal}>
+        <div className="cat-list">
           {categories.map(cat => (
             <div key={cat.id} className="cat-row" onClick={() => navigate(`/browse?cat=${cat.cat}`)}>
               <span className="cat-row-num">{cat.id}</span>
@@ -248,15 +248,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Real Users Section */}
+      {/* Real Users Section (No fade animation, solid rendering) */}
       <section className="section border-t border-border">
-        <div className="section-row reveal" ref={addToReveal}>
+        <div className="section-row">
           <div className="section-title-block">
             <div className="sec-label">Real Users</div>
             <h2 className="sec-title">What they're<br /><em>saying</em></h2>
           </div>
         </div>
-        <div className="testimonials-grid reveal" ref={addToReveal}>
+        <div className="testimonials-grid">
           {globalReviews.map((r, i) => (
             <div key={r.id || i} className="testimonial">
               <p className="testimonial-quote">{r.text}</p>
@@ -278,20 +278,20 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className="reveal mt-10 flex justify-center" ref={addToReveal}>
+        <div className="mt-10 flex justify-center">
           <button className="btn-primary bg-accent text-black border-none" onClick={() => setIsReviewModalOpen(true)}>Leave a Review</button>
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ (No fade animation, solid rendering) */}
       <section className="section">
-        <div className="section-row reveal" ref={addToReveal}>
+        <div className="section-row">
           <div className="section-title-block">
             <div className="sec-label">Common Questions</div>
             <h2 className="sec-title">FAQ</h2>
           </div>
         </div>
-        <div className="faq-list reveal" ref={addToReveal}>
+        <div className="faq-list">
           {[
             { q: "Is searching for tools really free?", a: "Yes, always. Users search, browse, compare, bookmark, and review tools at zero cost. We charge founders for premium placement — never users for discovery." },
             { q: "How is this different from other AI directories?", a: "Most directories are keyword-based — you have to know the tool's name. ToolScout uses intent-matching: describe a problem in plain English and we map it to tools by meaning. We also curate — we only list tools we've verified." },
@@ -311,9 +311,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Grow the Community / List Your Tool */}
+      {/* Grow the Community / List Your Tool (No fade animation, solid rendering) */}
       <section className="section border-t border-border">
-        <div className="section-row reveal" ref={addToReveal}>
+        <div className="section-row">
           <div className="section-title-block">
             <div className="sec-label">Grow the community</div>
             <h2 className="sec-title">List your<br /><em>AI tool</em></h2>
@@ -332,10 +332,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Strip */}
+      {/* CTA Strip (No fade animation, solid rendering) */}
       <div className="cta-strip">
-        <h2 className="cta-title reveal" ref={addToReveal}>Find your<br /><span className="acc">AI toolkit</span><br /><span className="out">today.</span></h2>
-        <div className="reveal flex gap-4 flex-wrap" ref={addToReveal}>
+        <h2 className="cta-title">Find your<br /><span className="acc">AI toolkit</span><br /><span className="out">today.</span></h2>
+        <div className="flex gap-4 flex-wrap">
           <button className="btn-primary" onClick={() => navigate('/browse')}>Browse Tools →</button>
         </div>
       </div>
