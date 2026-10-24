@@ -30,16 +30,16 @@ export default function ReviewModal({ isOpen, onClose, onSuccess }: ReviewModalP
       return;
     }
 
-    const existing = JSON.parse(localStorage.getItem('toolscout_global_reviews') || '[]');
+    const existing = JSON.parse(localStorage.getItem('starkive_global_reviews') || localStorage.getItem('toolscout_global_reviews') || '[]');
     const newReview = {
       id: Date.now(),
       name: name.trim(),
       text: text.trim(),
       rating,
-      role: 'ToolScout User',
+      role: 'Starkive User',
       date: new Date().toISOString(),
     };
-    localStorage.setItem('toolscout_global_reviews', JSON.stringify([...existing, newReview]));
+    localStorage.setItem('starkive_global_reviews', JSON.stringify([...existing, newReview]));
 
     setIsError(false);
     setMessage('Review submitted successfully!');

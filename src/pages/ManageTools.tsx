@@ -31,11 +31,15 @@ export default function ManageTools() {
     const handleToolsUpdated = () => refreshList();
     const handleAdminChanged = (e: any) => setIsAdmin(Boolean(e.detail));
 
+    window.addEventListener('starkive_tools_updated', handleToolsUpdated);
     window.addEventListener('toolscout_tools_updated', handleToolsUpdated);
+    window.addEventListener('starkive_admin_changed', handleAdminChanged);
     window.addEventListener('toolscout_admin_changed', handleAdminChanged);
 
     return () => {
+      window.removeEventListener('starkive_tools_updated', handleToolsUpdated);
       window.removeEventListener('toolscout_tools_updated', handleToolsUpdated);
+      window.removeEventListener('starkive_admin_changed', handleAdminChanged);
       window.removeEventListener('toolscout_admin_changed', handleAdminChanged);
     };
   }, []);
@@ -82,7 +86,7 @@ export default function ManageTools() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `toolscout-catalog-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `starkive-catalog-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };

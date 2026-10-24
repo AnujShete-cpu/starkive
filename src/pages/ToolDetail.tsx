@@ -27,7 +27,7 @@ export default function ToolDetail() {
   const revealRefs = useRef<HTMLElement[]>([]);
 
   const loadReviews = (toolId: number) => {
-    const all = JSON.parse(localStorage.getItem('toolscout_tool_reviews') || '[]');
+    const all = JSON.parse(localStorage.getItem('starkive_tool_reviews') || localStorage.getItem('toolscout_tool_reviews') || '[]');
     const toolReviews = all.filter((r: Review) => r.toolId === toolId);
     toolReviews.sort((a: Review, b: Review) => b.rating - a.rating);
     setReviews(toolReviews);
@@ -39,7 +39,7 @@ export default function ToolDetail() {
     if (found) {
       setTool(found);
       loadReviews(found.id);
-      const bookmarks = JSON.parse(localStorage.getItem('toolscout_bookmarks') || '[]');
+      const bookmarks = JSON.parse(localStorage.getItem('starkive_bookmarks') || localStorage.getItem('toolscout_bookmarks') || '[]');
       setIsBookmarked(bookmarks.includes(found.id));
     } else {
       navigate('/browse');
@@ -62,11 +62,11 @@ export default function ToolDetail() {
 
   const toggleBookmark = () => {
     if (!tool) return;
-    const bookmarks = JSON.parse(localStorage.getItem('toolscout_bookmarks') || '[]');
+    const bookmarks = JSON.parse(localStorage.getItem('starkive_bookmarks') || localStorage.getItem('toolscout_bookmarks') || '[]');
     const newBookmarks = isBookmarked
       ? bookmarks.filter((bid: number) => bid !== tool.id)
       : [...bookmarks, tool.id];
-    localStorage.setItem('toolscout_bookmarks', JSON.stringify(newBookmarks));
+    localStorage.setItem('starkive_bookmarks', JSON.stringify(newBookmarks));
     setIsBookmarked(!isBookmarked);
     
     const event = new CustomEvent('show-toast', {
@@ -77,7 +77,7 @@ export default function ToolDetail() {
 
   const submitReview = () => {
     if (!tool || !reviewName.trim() || !reviewText.trim()) return;
-    const all = JSON.parse(localStorage.getItem('toolscout_tool_reviews') || '[]');
+    const all = JSON.parse(localStorage.getItem('starkive_tool_reviews') || localStorage.getItem('toolscout_tool_reviews') || '[]');
     const newReview: Review = {
       id: Date.now(),
       toolId: tool.id,
@@ -86,7 +86,7 @@ export default function ToolDetail() {
       rating: reviewRating,
       date: new Date().toISOString(),
     };
-    localStorage.setItem('toolscout_tool_reviews', JSON.stringify([...all, newReview]));
+    localStorage.setItem('starkive_tool_reviews', JSON.stringify([...all, newReview]));
     setReviewName('');
     setReviewText('');
     setReviewRating(5);

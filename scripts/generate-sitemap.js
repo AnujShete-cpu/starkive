@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const BASE_URL = 'https://toolscout-two.vercel.app';
+const BASE_URL = 'https://starkive.vercel.app';
 const TODAY = new Date().toISOString().split('T')[0];
 
 const CONSTANTS_PATH = path.resolve(__dirname, '../src/constants.ts');

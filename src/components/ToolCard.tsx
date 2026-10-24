@@ -13,20 +13,20 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
-    const bookmarks = JSON.parse(localStorage.getItem('toolscout_bookmarks') || '[]');
+    const bookmarks = JSON.parse(localStorage.getItem('starkive_bookmarks') || localStorage.getItem('toolscout_bookmarks') || '[]');
     setIsBookmarked(bookmarks.includes(tool.id));
   }, [tool.id]);
 
   const toggleBookmark = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const bookmarks = JSON.parse(localStorage.getItem('toolscout_bookmarks') || '[]');
+    const bookmarks = JSON.parse(localStorage.getItem('starkive_bookmarks') || localStorage.getItem('toolscout_bookmarks') || '[]');
     let newBookmarks;
     if (isBookmarked) {
       newBookmarks = bookmarks.filter((id: number) => id !== tool.id);
     } else {
       newBookmarks = [...bookmarks, tool.id];
     }
-    localStorage.setItem('toolscout_bookmarks', JSON.stringify(newBookmarks));
+    localStorage.setItem('starkive_bookmarks', JSON.stringify(newBookmarks));
     setIsBookmarked(!isBookmarked);
 
     const event = new CustomEvent('show-toast', {

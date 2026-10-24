@@ -33,7 +33,7 @@ export default function ScoutAIAssistant() {
     {
       id: 'welcome',
       sender: 'ai',
-      text: "Hey! I'm **Scout AI**, your intelligent AI directory assistant. Tell me what task, workflow, or problem you want to solve, and I'll find the exact best tools and stacks for you.",
+      text: "Hey! I'm **Starkive AI**, your intelligent AI directory assistant. Tell me what task, workflow, or problem you want to solve, and I'll find the exact best tools and stacks for you.",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
@@ -168,7 +168,7 @@ export default function ScoutAIAssistant() {
         }`}
       >
         <Sparkles size={18} className="animate-spin-slow" />
-        <span className="text-xs uppercase tracking-wider hidden sm:inline">Ask Scout AI</span>
+        <span className="text-xs uppercase tracking-wider hidden sm:inline">Ask Starkive AI</span>
         <span className="w-2.5 h-2.5 rounded-full bg-black animate-pulse"></span>
       </button>
 
@@ -183,7 +183,7 @@ export default function ScoutAIAssistant() {
               </div>
               <div>
                 <div className="font-syne font-bold text-sm text-white flex items-center gap-2">
-                  Scout AI <span className="text-[10px] bg-accent text-black font-mono px-1.5 py-0.2 rounded font-bold">COPILOT</span>
+                  Starkive AI <span className="text-[10px] bg-accent text-black font-mono px-1.5 py-0.2 rounded font-bold">COPILOT</span>
                 </div>
                 <div className="text-[11px] text-white3 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span> Live tool recommendation & workflows
@@ -198,7 +198,7 @@ export default function ScoutAIAssistant() {
                     {
                       id: 'welcome',
                       sender: 'ai',
-                      text: "Hey! I'm **Scout AI**, your intelligent AI directory assistant. Tell me what task, workflow, or problem you want to solve, and I'll find the exact best tools and stacks for you.",
+                      text: "Hey! I'm **Starkive AI**, your intelligent AI directory assistant. Tell me what task, workflow, or problem you want to solve, and I'll find the exact best tools and stacks for you.",
                       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                     },
                   ])
@@ -295,7 +295,7 @@ export default function ScoutAIAssistant() {
 
             {isTyping && (
               <div className="flex items-center gap-2 text-white3 text-xs bg-black3 px-3.5 py-2 rounded-xl w-fit border border-border">
-                <Sparkles size={14} className="animate-spin text-accent" /> Scout AI is searching catalog...
+                <Sparkles size={14} className="animate-spin text-accent" /> Starkive AI is searching catalog...
               </div>
             )}
             <div ref={messagesEndRef} />

@@ -82,6 +82,6 @@ const formattedLines = sorted.map(t => `  ` + JSON.stringify(t)).join(',\n');
 const newContent = `import { Tool } from './types';\n\nexport const TOOLS: Tool[] = [\n${formattedLines}\n];\n`;
 
 fs.writeFileSync(CONSTANTS_PATH, newContent, 'utf-8');
-console.log(`\n🎉 Successfully added "${newTool.name}" (ID: ${newTool.id}) to ToolScout!`);
+console.log(`\n🎉 Successfully added "${newTool.name}" (ID: ${newTool.id}) to Starkive!`);
 console.log(`Category: ${newTool.catLabel} | URL: ${newTool.url}`);
 console.log(`Total tools in directory: ${tools.length}\n`);

@@ -10,7 +10,7 @@ import ReviewModal from '../components/ReviewModal';
 
 const DEFAULT_REVIEWS = [
   { id: 1, name: 'Sarah K.', role: 'Freelance Designer', text: 'Finally a directory that actually understands what I\'m looking for. Searched "make my photos look professional" and got exactly the right tools.', rating: 5, date: '2026-03-01' },
-  { id: 2, name: 'Marcus T.', role: 'Startup Founder', text: 'Used to waste hours comparing AI tools. ToolScout cut that down to minutes. The intent-matching is genuinely different from anything else out there.', rating: 5, date: '2026-03-05' },
+  { id: 2, name: 'Marcus T.', role: 'Startup Founder', text: 'Used to waste hours comparing AI tools. Starkive cut that down to minutes. The intent-matching is genuinely different from anything else out there.', rating: 5, date: '2026-03-05' },
   { id: 3, name: 'Priya M.', role: 'Content Creator', text: 'The category breakdown and tagging system makes it so easy to discover tools I never would have found otherwise. Bookmarking everything!', rating: 5, date: '2026-03-10' },
 ];
 
@@ -30,7 +30,7 @@ export default function Home() {
   };
 
   const loadReviews = () => {
-    const stored = JSON.parse(localStorage.getItem('toolscout_global_reviews') || '[]');
+    const stored = JSON.parse(localStorage.getItem('starkive_global_reviews') || localStorage.getItem('toolscout_global_reviews') || '[]');
     setGlobalReviews(stored.length > 0 ? stored : DEFAULT_REVIEWS);
   };
 
@@ -39,6 +39,7 @@ export default function Home() {
     loadReviews();
 
     const handleToolsUpdated = () => loadTools();
+    window.addEventListener('starkive_tools_updated', handleToolsUpdated);
     window.addEventListener('toolscout_tools_updated', handleToolsUpdated);
 
     const observer = new IntersectionObserver((entries) => {
@@ -56,6 +57,7 @@ export default function Home() {
     window.addEventListener('show-toast', handleToast);
 
     return () => {
+      window.removeEventListener('starkive_tools_updated', handleToolsUpdated);
       window.removeEventListener('toolscout_tools_updated', handleToolsUpdated);
       observer.disconnect();
       window.removeEventListener('show-toast', handleToast);
@@ -272,7 +274,7 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="author-name">{r.name}</div>
-                  <div className="author-role">{r.role || 'ToolScout User'}</div>
+                  <div className="author-role">{r.role || 'Starkive User'}</div>
                 </div>
               </div>
             </div>
@@ -294,7 +296,7 @@ export default function Home() {
         <div className="faq-list">
           {[
             { q: "Is searching for tools really free?", a: "Yes, always. Users search, browse, compare, bookmark, and review tools at zero cost. We charge founders for premium placement — never users for discovery." },
-            { q: "How is this different from other AI directories?", a: "Most directories are keyword-based — you have to know the tool's name. ToolScout uses intent-matching: describe a problem in plain English and we map it to tools by meaning. We also curate — we only list tools we've verified." },
+            { q: "How is this different from other AI directories?", a: "Most directories are keyword-based — you have to know the tool's name. Starkive uses intent-matching: describe a problem in plain English and we map it to tools by meaning. We also curate — we only list tools we've verified." },
             { q: "How do I find and keep GitHub repositories?", a: "Visit the GitHub Repos page from the navigation or hero section. You can sort by stars or forks, filter by programming language, and click 'Keep' to save repositories to your personal profile." },
             { q: "How often is the directory updated?", a: "We update our directory daily with new tools and verified reviews to keep you at the cutting edge of AI." },
             { q: "Can I submit my own AI tool?", a: "Absolutely! We love discovering new tools. Use the 'List Your Tool' section below to submit your tool for review." },

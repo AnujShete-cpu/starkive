@@ -1,6 +1,6 @@
-# 🤖 ToolScout MCP Server (Model Context Protocol)
+# 🤖 Starkive MCP Server (Model Context Protocol)
 
-This private MCP server enables AI agents (like Claude Desktop, Cursor, Antigravity, Windsurf, or custom LLM scripts) to autonomously manage, scrape, categorize, and add new AI tools/websites directly to your ToolScout catalog.
+This private MCP server enables AI agents (like Claude Desktop, Cursor, Antigravity, Windsurf, or custom LLM scripts) to autonomously manage, scrape, categorize, and add new AI tools/websites directly to your Starkive catalog.
 
 ---
 
@@ -24,10 +24,10 @@ Add this to your Claude Desktop configuration file (`%APPDATA%\Claude\claude_des
 ```json
 {
   "mcpServers": {
-    "toolscout": {
+    "starkive": {
       "command": "node",
       "args": [
-        "c:/Users/HP/Downloads/Toolscout files/toolscout-main/mcp-server/index.js"
+        "c:/Users/HP/Downloads/toolscout/mcp-server/index.js"
       ]
     }
   }
@@ -40,7 +40,7 @@ Add to `.cursor/mcp.json` in your workspace:
 ```json
 {
   "mcpServers": {
-    "toolscout": {
+    "starkive": {
       "command": "node",
       "args": ["mcp-server/index.js"]
     }
@@ -61,4 +61,4 @@ Or simply:
 ```bash
 npm run add:tool https://gamma.app
 ```
-*(Automatically extracts domain name, generates smart tags, assigns categories, and writes directly into your codebase).*
+(Metadata will be scraped and inferred automatically!)

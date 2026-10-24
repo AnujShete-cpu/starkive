@@ -1,9 +1,9 @@
 import { Tool } from '../types';
 import { TOOLS as INITIAL_TOOLS } from '../constants';
 
-const STORAGE_CUSTOM_TOOLS_KEY = 'toolscout_custom_tools';
-const STORAGE_DELETED_IDS_KEY = 'toolscout_deleted_tool_ids';
-const STORAGE_MODIFIED_TOOLS_KEY = 'toolscout_modified_tools';
+const STORAGE_CUSTOM_TOOLS_KEY = 'starkive_custom_tools';
+const STORAGE_DELETED_IDS_KEY = 'starkive_deleted_tool_ids';
+const STORAGE_MODIFIED_TOOLS_KEY = 'starkive_modified_tools';
 
 export const TOOL_CATEGORIES = [
   { value: 'all', label: 'All Categories' },
@@ -34,7 +34,7 @@ export const TOOL_CATEGORIES = [
 
 export const getStoredCustomTools = (): Tool[] => {
   try {
-    const raw = localStorage.getItem(STORAGE_CUSTOM_TOOLS_KEY);
+    const raw = localStorage.getItem(STORAGE_CUSTOM_TOOLS_KEY) || localStorage.getItem('toolscout_custom_tools');
     return raw ? JSON.parse(raw) : [];
   } catch (e) {
     console.error('Failed to load custom tools from localStorage:', e);
@@ -44,7 +44,7 @@ export const getStoredCustomTools = (): Tool[] => {
 
 export const getDeletedToolIds = (): number[] => {
   try {
-    const raw = localStorage.getItem(STORAGE_DELETED_IDS_KEY);
+    const raw = localStorage.getItem(STORAGE_DELETED_IDS_KEY) || localStorage.getItem('toolscout_deleted_tool_ids');
     return raw ? JSON.parse(raw) : [];
   } catch (e) {
     return [];
@@ -53,7 +53,7 @@ export const getDeletedToolIds = (): number[] => {
 
 export const getModifiedTools = (): Record<number, Partial<Tool>> => {
   try {
-    const raw = localStorage.getItem(STORAGE_MODIFIED_TOOLS_KEY);
+    const raw = localStorage.getItem(STORAGE_MODIFIED_TOOLS_KEY) || localStorage.getItem('toolscout_modified_tools');
     return raw ? JSON.parse(raw) : {};
   } catch (e) {
     return {};
@@ -88,6 +88,7 @@ export const getToolById = (id: number): Tool | undefined => {
 };
 
 export const notifyToolsChanged = () => {
+  window.dispatchEvent(new CustomEvent('starkive_tools_updated'));
   window.dispatchEvent(new CustomEvent('toolscout_tools_updated'));
 };
 
@@ -167,6 +168,9 @@ export const resetToDefaults = () => {
   localStorage.removeItem(STORAGE_CUSTOM_TOOLS_KEY);
   localStorage.removeItem(STORAGE_DELETED_IDS_KEY);
   localStorage.removeItem(STORAGE_MODIFIED_TOOLS_KEY);
+  localStorage.removeItem('toolscout_custom_tools');
+  localStorage.removeItem('toolscout_deleted_tool_ids');
+  localStorage.removeItem('toolscout_modified_tools');
   notifyToolsChanged();
 };
 

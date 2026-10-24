@@ -37,7 +37,7 @@ export default function HowItWorks() {
       <section className="section min-h-[80vh]">
         <div className="section-row reveal" ref={addToReveal}>
           <div className="section-title-block">
-            <div className="sec-label">How ToolScout Works</div>
+            <div className="sec-label">How Starkive Works</div>
             <h2 className="sec-title">Stop searching.<br /><em>Start finding.</em></h2>
           </div>
         </div>

@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="footer-logo-block">
           <Link to="/" className="logo">
             <span className="logo-dot"></span>
-            ToolScout
+            Starkive
           </Link>
           <p>The intent-first AI tools directory. Find the right tool for any problem — not just the most popular one.</p>
         </div>
@@ -38,7 +38,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© 2026 ToolScout. The Intelligent AI Tools Directory.</p>
+        <p>© 2026 Starkive. The Intelligent AI Tools Directory.</p>
         <p>
           <Link to="/coming-soon">Privacy</Link> · <Link to="/coming-soon">Terms</Link>
         </p>

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * ToolScout MCP Server
+ * Starkive MCP Server
  * Model Context Protocol server enabling AI agents to automate website scraping,
- * categorization, validation, and catalog management for ToolScout.
+ * categorization, validation, and catalog management for Starkive.
  */
 
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
@@ -155,7 +155,7 @@ function extractMetadata(url, html = '') {
  */
 const server = new Server(
   {
-    name: 'toolscout-mcp-server',
+    name: 'starkive-mcp-server',
     version: '1.0.0',
   },
   {
@@ -171,7 +171,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     tools: [
       {
         name: 'add_website',
-        description: 'Add a new AI tool/website directly to the ToolScout catalog. Supports auto-scraping metadata from URL.',
+        description: 'Add a new AI tool/website directly to the Starkive catalog. Supports auto-scraping metadata from URL.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -189,7 +189,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: 'list_websites',
-        description: 'List and search tools in the ToolScout catalog.',
+        description: 'List and search tools in the Starkive catalog.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -201,7 +201,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: 'delete_website',
-        description: 'Delete a tool from the ToolScout catalog by ID or exact Name.',
+        description: 'Delete a tool from the Starkive catalog by ID or exact Name.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -227,7 +227,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: 'get_catalog_stats',
-        description: 'Get total tool count and category breakdown for ToolScout.',
+        description: 'Get total tool count and category breakdown for Starkive.',
         inputSchema: { type: 'object', properties: {} },
       },
     ],
@@ -269,7 +269,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       content: [
         {
           type: 'text',
-          text: `✅ Successfully added "${newTool.name}" (ID: ${newTool.id}) to ToolScout!\nCategory: ${newTool.catLabel} | Price: ${newTool.price}\nURL: ${newTool.url}\nTotal Catalog: ${tools.length} tools.`,
+          text: `✅ Successfully added "${newTool.name}" (ID: ${newTool.id}) to Starkive!\nCategory: ${newTool.catLabel} | Price: ${newTool.price}\nURL: ${newTool.url}\nTotal Catalog: ${tools.length} tools.`,
         },
       ],
     };
@@ -380,7 +380,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function run() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error('ToolScout MCP Server running on stdio');
+  console.error('Starkive MCP Server running on stdio');
 }
 
 run().catch((error) => {

@@ -25,13 +25,13 @@ export default function EmbedWidgetModal({ isOpen, onClose, tool }: EmbedWidgetM
   width="100%"
   height="320"
   style="border: 1px solid ${theme === 'dark' ? '#222' : '#e5e7eb'}; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);"
-  title="${tool.name} on ToolScout"
+  title="${tool.name} on Starkive"
   loading="lazy"
 ></iframe>`;
   } else if (embedType === 'badge') {
     embedCode = `<a href="${toolUrl}" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:8px; padding:8px 14px; background:${theme === 'dark' ? '#111' : '#f4f4f5'}; border:1px solid ${theme === 'dark' ? '#333' : '#d1d5db'}; border-radius:10px; color:${theme === 'dark' ? '#fff' : '#111'}; font-family:sans-serif; font-size:13px; text-decoration:none; font-weight:600;">
   <span>${tool.icon}</span>
-  <span>Featured on <strong>ToolScout</strong></span>
+  <span>Featured on <strong>Starkive</strong></span>
   <span style="color:#c8ff00; background:#000; padding:2px 6px; border-radius:4px; font-size:11px;">★ ${tool.rating}</span>
 </a>`;
   } else {
@@ -169,7 +169,7 @@ export default function EmbedWidgetModal({ isOpen, onClose, tool }: EmbedWidgetM
               >
                 <span className="text-xl">{tool.icon}</span>
                 <div className="text-xs font-syne">
-                  <div>Featured on <strong>ToolScout</strong></div>
+                  <div>Featured on <strong>Starkive</strong></div>
                   <div className="text-[11px] text-white3">{tool.name}</div>
                 </div>
                 <span className="bg-accent text-black text-[11px] font-bold px-2 py-0.5 rounded font-mono">
@@ -199,7 +199,7 @@ export default function EmbedWidgetModal({ isOpen, onClose, tool }: EmbedWidgetM
                 <p className="text-xs line-clamp-2 my-2 text-white2">{tool.desc}</p>
                 <div className="flex items-center justify-between pt-2 border-t border-border/50 text-[11px]">
                   <span className="text-white3">⭐ {tool.rating} ({tool.ratingCount})</span>
-                  <span className="text-accent font-bold">toolscout.io ↗</span>
+                  <span className="text-accent font-bold">starkive.io ↗</span>
                 </div>
               </div>
             )}

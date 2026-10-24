@@ -1,4 +1,4 @@
-# ToolScout — AI Tools Directory
+# Starkive — AI Tools Directory
 
 The intent-first AI tools directory. 200+ curated AI tools, fully static, zero backend.
 

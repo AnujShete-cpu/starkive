@@ -32,7 +32,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <Link to="/" className="logo">
             <span className="logo-dot"></span>
-            ToolScout
+            Starkive
           </Link>
         </div>
 
