@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://starkive-one.vercel.app/sitemap.xml
+Sitemap: https://starkive.vercel.app/sitemap.xml
