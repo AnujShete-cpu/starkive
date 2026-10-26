@@ -30,7 +30,7 @@ export default function ReviewModal({ isOpen, onClose, onSuccess }: ReviewModalP
       return;
     }
 
-    const existing = JSON.parse(localStorage.getItem('starkive_global_reviews') || localStorage.getItem('toolscout_global_reviews') || '[]');
+    const existing = JSON.parse(localStorage.getItem('starkive_global_reviews') || '[]');
     const newReview = {
       id: Date.now(),
       name: name.trim(),

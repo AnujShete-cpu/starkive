@@ -16,10 +16,10 @@ export default function Profile() {
 
   const loadData = () => {
     const all = getAllTools();
-    const bookmarks = JSON.parse(localStorage.getItem('starkive_bookmarks') || localStorage.getItem('toolscout_bookmarks') || '[]');
+    const bookmarks = JSON.parse(localStorage.getItem('starkive_bookmarks') || '[]');
     setLikedTools(all.filter(t => bookmarks.includes(t.id)));
 
-    const savedRepos = JSON.parse(localStorage.getItem('starkive_saved_repos') || localStorage.getItem('toolscout_saved_repos') || '[]');
+    const savedRepos = JSON.parse(localStorage.getItem('starkive_saved_repos') || '[]');
     setKeptRepos(GITHUB_REPOS.filter(r => savedRepos.includes(r.id)));
   };
 
@@ -29,12 +29,10 @@ export default function Profile() {
     const handleToast = () => loadData();
     window.addEventListener('show-toast', handleToast);
     window.addEventListener('starkive_tools_updated', loadData);
-    window.addEventListener('toolscout_tools_updated', loadData);
     window.addEventListener('storage', loadData);
     return () => {
       window.removeEventListener('show-toast', handleToast);
       window.removeEventListener('starkive_tools_updated', loadData);
-      window.removeEventListener('toolscout_tools_updated', loadData);
       window.removeEventListener('storage', loadData);
     };
   }, []);
@@ -56,7 +54,6 @@ export default function Profile() {
   const clearBookmarks = () => {
     if (confirm('Clear all saved tools?')) {
       localStorage.removeItem('starkive_bookmarks');
-      localStorage.removeItem('toolscout_bookmarks');
       setLikedTools([]);
     }
   };
@@ -64,7 +61,6 @@ export default function Profile() {
   const clearKeptRepos = () => {
     if (confirm('Clear all kept GitHub repositories?')) {
       localStorage.removeItem('starkive_saved_repos');
-      localStorage.removeItem('toolscout_saved_repos');
       setKeptRepos([]);
     }
   };

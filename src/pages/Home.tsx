@@ -30,7 +30,7 @@ export default function Home() {
   };
 
   const loadReviews = () => {
-    const stored = JSON.parse(localStorage.getItem('starkive_global_reviews') || localStorage.getItem('toolscout_global_reviews') || '[]');
+    const stored = JSON.parse(localStorage.getItem('starkive_global_reviews') || '[]');
     setGlobalReviews(stored.length > 0 ? stored : DEFAULT_REVIEWS);
   };
 
@@ -40,7 +40,6 @@ export default function Home() {
 
     const handleToolsUpdated = () => loadTools();
     window.addEventListener('starkive_tools_updated', handleToolsUpdated);
-    window.addEventListener('toolscout_tools_updated', handleToolsUpdated);
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -58,7 +57,6 @@ export default function Home() {
 
     return () => {
       window.removeEventListener('starkive_tools_updated', handleToolsUpdated);
-      window.removeEventListener('toolscout_tools_updated', handleToolsUpdated);
       observer.disconnect();
       window.removeEventListener('show-toast', handleToast);
     };

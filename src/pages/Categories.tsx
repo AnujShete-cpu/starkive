@@ -14,7 +14,6 @@ export default function Categories() {
   useEffect(() => {
     loadTools();
     window.addEventListener('starkive_tools_updated', loadTools);
-    window.addEventListener('toolscout_tools_updated', loadTools);
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -25,7 +24,6 @@ export default function Categories() {
 
     return () => {
       window.removeEventListener('starkive_tools_updated', loadTools);
-      window.removeEventListener('toolscout_tools_updated', loadTools);
       observer.disconnect();
     };
   }, []);

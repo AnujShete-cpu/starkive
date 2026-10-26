@@ -23,7 +23,7 @@ export default function Repos() {
 
   const loadSavedIds = () => {
     try {
-      const saved = JSON.parse(localStorage.getItem('starkive_saved_repos') || localStorage.getItem('toolscout_saved_repos') || '[]');
+      const saved = JSON.parse(localStorage.getItem('starkive_saved_repos') || '[]');
       setSavedRepoIds(saved);
     } catch {
       setSavedRepoIds([]);

@@ -13,14 +13,14 @@ export const GitHubRepoCard: React.FC<GitHubRepoCardProps> = ({ repo, index, onB
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('starkive_saved_repos') || localStorage.getItem('toolscout_saved_repos') || '[]');
+    const saved = JSON.parse(localStorage.getItem('starkive_saved_repos') || '[]');
     setIsBookmarked(saved.includes(repo.id));
   }, [repo.id]);
 
   const toggleBookmark = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    const saved = JSON.parse(localStorage.getItem('starkive_saved_repos') || localStorage.getItem('toolscout_saved_repos') || '[]');
+    const saved = JSON.parse(localStorage.getItem('starkive_saved_repos') || '[]');
     let updated: string[];
     if (isBookmarked) {
       updated = saved.filter((id: string) => id !== repo.id);

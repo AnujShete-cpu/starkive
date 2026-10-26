@@ -27,7 +27,7 @@ Add this to your Claude Desktop configuration file (`%APPDATA%\Claude\claude_des
     "starkive": {
       "command": "node",
       "args": [
-        "c:/Users/HP/Downloads/toolscout/mcp-server/index.js"
+        "c:/Users/HP/Downloads/starkive/mcp-server/index.js"
       ]
     }
   }
